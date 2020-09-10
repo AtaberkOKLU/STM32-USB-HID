@@ -1,0 +1,77 @@
+
+//--------------------------------------------------------------------------------
+// Decoded Application Collection
+//--------------------------------------------------------------------------------
+
+/*
+05 01        (GLOBAL) USAGE_PAGE         0x0001 Generic Desktop Page 
+09 02        (LOCAL)  USAGE              0x00010002 Mouse (Application Collection)  
+A1 01        (MAIN)   COLLECTION         0x01 Application (Usage=0x00010002: Page=Generic Desktop Page, Usage=Mouse, Type=Application Collection)
+09 01          (LOCAL)  USAGE              0x00010001 Pointer (Physical Collection)  
+A1 00          (MAIN)   COLLECTION         0x00 Physical (Usage=0x00010001: Page=Generic Desktop Page, Usage=Pointer, Type=Physical Collection)
+05 09            (GLOBAL) USAGE_PAGE         0x0009 Button Page 
+19 01            (LOCAL)  USAGE_MINIMUM      0x00090001 Button 1 Primary/trigger (Selector, On/Off Control, Momentary Control, or One Shot Control)  
+29 03            (LOCAL)  USAGE_MAXIMUM      0x00090003 Button 3 Tertiary (Selector, On/Off Control, Momentary Control, or One Shot Control)  
+15 00            (GLOBAL) LOGICAL_MINIMUM    0x00 (0)  <-- Info: Consider replacing 15 00 with 14
+25 01            (GLOBAL) LOGICAL_MAXIMUM    0x01 (1)  
+95 03            (GLOBAL) REPORT_COUNT       0x03 (3) Number of fields  
+75 01            (GLOBAL) REPORT_SIZE        0x01 (1) Number of bits per field  
+81 02            (MAIN)   INPUT              0x00000002 (3 fields x 1 bit) 0=Data 1=Variable 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap 
+95 01            (GLOBAL) REPORT_COUNT       0x01 (1) Number of fields  
+75 05            (GLOBAL) REPORT_SIZE        0x05 (5) Number of bits per field  
+81 01            (MAIN)   INPUT              0x00000001 (1 field x 5 bits) 1=Constant 0=Array 0=Absolute 
+05 01            (GLOBAL) USAGE_PAGE         0x0001 Generic Desktop Page 
+09 30            (LOCAL)  USAGE              0x00010030 X (Dynamic Value)  
+09 31            (LOCAL)  USAGE              0x00010031 Y (Dynamic Value)  
+09 38            (LOCAL)  USAGE              0x00010038 Wheel (Dynamic Value)  
+15 81            (GLOBAL) LOGICAL_MINIMUM    0x81 (-127)  
+25 7F            (GLOBAL) LOGICAL_MAXIMUM    0x7F (127)  
+75 08            (GLOBAL) REPORT_SIZE        0x08 (8) Number of bits per field  
+95 03            (GLOBAL) REPORT_COUNT       0x03 (3) Number of fields  
+81 06            (MAIN)   INPUT              0x00000006 (3 fields x 8 bits) 0=Data 1=Variable 1=Relative 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap 
+C0             (MAIN)   END_COLLECTION     Physical 
+09 3C          (LOCAL)  USAGE              0x0001003C Motion Wakeup (One Shot Control)  
+05 FF          (GLOBAL) USAGE_PAGE         0x00FF Reserved 
+09 01          (LOCAL)  USAGE              0x00FF0001 <-- Warning: Undocumented usage (document it by inserting 0001 into file 00FF.conf)
+15 00          (GLOBAL) LOGICAL_MINIMUM    0x00 (0)  <-- Info: Consider replacing 15 00 with 14
+25 01          (GLOBAL) LOGICAL_MAXIMUM    0x01 (1)  
+75 01          (GLOBAL) REPORT_SIZE        0x01 (1) Number of bits per field  
+95 02          (GLOBAL) REPORT_COUNT       0x02 (2) Number of fields  
+B1 22          (MAIN)   FEATURE            0x00000022 (2 fields x 1 bit) 0=Data 1=Variable 0=Absolute 0=NoWrap 0=Linear 1=NoPrefState 0=NoNull 0=NonVolatile 0=Bitmap 
+75 06          (GLOBAL) REPORT_SIZE        0x06 (6) Number of bits per field  
+95 01          (GLOBAL) REPORT_COUNT       0x01 (1) Number of fields  
+B1 01          (MAIN)   FEATURE            0x00000001 (1 field x 6 bits) 1=Constant 0=Array 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap 
+C0           (MAIN)   END_COLLECTION     Application 
+*/
+
+//--------------------------------------------------------------------------------
+// Reserved featureReport (Device <-> Host)
+//--------------------------------------------------------------------------------
+
+typedef struct
+{
+                                                     // No REPORT ID byte
+                                                     // Collection: CA:Mouse
+  uint8_t  GD_MouseMotionWakeup : 1;                 // Usage 0x0001003C: Motion Wakeup, Value = 0 to 1
+  uint8_t  RES_Mouse0001 : 1;                        // Usage 0x00FF0001: , Value = 0 to 1
+  uint8_t  : 6;                                      // Pad
+} featureReport_t;
+
+
+//--------------------------------------------------------------------------------
+// Button Page inputReport (Device --> Host)
+//--------------------------------------------------------------------------------
+
+typedef struct
+{
+                                                     // No REPORT ID byte
+                                                     // Collection: CA:Mouse CP:Pointer
+  uint8_t  BTN_MousePointerButton1 : 1;              // Usage 0x00090001: Button 1 Primary/trigger, Value = 0 to 1
+  uint8_t  BTN_MousePointerButton2 : 1;              // Usage 0x00090002: Button 2 Secondary, Value = 0 to 1
+  uint8_t  BTN_MousePointerButton3 : 1;              // Usage 0x00090003: Button 3 Tertiary, Value = 0 to 1
+  uint8_t  : 5;                                      // Pad
+  int8_t   GD_MousePointerX;                         // Usage 0x00010030: X, Value = -127 to 127
+  int8_t   GD_MousePointerY;                         // Usage 0x00010031: Y, Value = -127 to 127
+  int8_t   GD_MousePointerWheel;                     // Usage 0x00010038: Wheel, Value = -127 to 127
+} inputReport_t;
+
