@@ -1,0 +1,100 @@
+
+//--------------------------------------------------------------------------------
+// Decoded Application Collection
+//--------------------------------------------------------------------------------
+
+/*
+05 0D        (GLOBAL) USAGE_PAGE         0x000D Digitizer Device Page 
+09 04        (LOCAL)  USAGE              0x000D0004 Touch Screen (Application Collection)  
+A1 01        (MAIN)   COLLECTION         0x01 Application (Usage=0x000D0004: Page=Digitizer Device Page, Usage=Touch Screen, Type=Application Collection)
+85 03          (GLOBAL) REPORT_ID          0x03 (3)  
+09 22          (LOCAL)  USAGE              0x000D0022 Finger (Logical Collection)  
+A1 00          (MAIN)   COLLECTION         0x00 Physical (Usage=0x000D0022: Page=Digitizer Device Page, Usage=Finger, Type=Logical Collection) <-- Warning: USAGE type should be CP (Physical Collection)
+09 42            (LOCAL)  USAGE              0x000D0042 Tip Switch (Momentary Control)  
+15 00            (GLOBAL) LOGICAL_MINIMUM    0x00 (0)  <-- Info: Consider replacing 15 00 with 14
+25 01            (GLOBAL) LOGICAL_MAXIMUM    0x01 (1)  
+75 01            (GLOBAL) REPORT_SIZE        0x01 (1) Number of bits per field  
+95 01            (GLOBAL) REPORT_COUNT       0x01 (1) Number of fields  
+81 02            (MAIN)   INPUT              0x00000002 (1 field x 1 bit) 0=Data 1=Variable 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap 
+95 03            (GLOBAL) REPORT_COUNT       0x03 (3) Number of fields  
+81 03            (MAIN)   INPUT              0x00000003 (3 fields x 1 bit) 1=Constant 1=Variable 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap 
+09 32            (LOCAL)  USAGE              0x000D0032 In Range (Momentary Control)  
+09 47            (LOCAL)  USAGE              0x000D0047 Confidence (Dynamic Value)  
+95 02            (GLOBAL) REPORT_COUNT       0x02 (2) Number of fields  
+81 02            (MAIN)   INPUT              0x00000002 (2 fields x 1 bit) 0=Data 1=Variable 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap 
+95 0A            (GLOBAL) REPORT_COUNT       0x0A (10) Number of fields  
+81 03            (MAIN)   INPUT              0x00000003 (10 fields x 1 bit) 1=Constant 1=Variable 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap 
+05 01            (GLOBAL) USAGE_PAGE         0x0001 Generic Desktop Page 
+26 FF7F          (GLOBAL) LOGICAL_MAXIMUM    0x7FFF (32767)  
+75 10            (GLOBAL) REPORT_SIZE        0x10 (16) Number of bits per field  
+95 01            (GLOBAL) REPORT_COUNT       0x01 (1) Number of fields  
+65 00            (GLOBAL) UNIT               0x00 No unit (0=None) <-- Redundant: UNIT is already 0x00000000 <-- Info: Consider replacing 65 00 with 64
+09 30            (LOCAL)  USAGE              0x00010030 X (Dynamic Value)  
+81 02            (MAIN)   INPUT              0x00000002 (1 field x 16 bits) 0=Data 1=Variable 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap 
+09 31            (LOCAL)  USAGE              0x00010031 Y (Dynamic Value)  
+46 0000          (GLOBAL) PHYSICAL_MAXIMUM   0x0000 (0)  <-- Info: Consider replacing 46 0000 with 44
+81 02            (MAIN)   INPUT              0x00000002 (1 field x 16 bits) 0=Data 1=Variable 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap  <-- Error: PHYSICAL_MINIMUM is undefined
+05 0D            (GLOBAL) USAGE_PAGE         0x000D Digitizer Device Page 
+09 48            (LOCAL)  USAGE              0x000D0048 Width (Dynamic Value)  
+09 49            (LOCAL)  USAGE              0x000D0049 Height (Dynamic Value)  
+95 01            (GLOBAL) REPORT_COUNT       0x01 (1) Number of fields <-- Redundant: REPORT_COUNT is already 1 
+81 02            (MAIN)   INPUT              0x00000002 (1 field x 16 bits) 0=Data 1=Variable 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap  <-- Error: PHYSICAL_MINIMUM is undefined
+81 03            (MAIN)   INPUT              0x00000003 (1 field x 16 bits) 1=Constant 1=Variable 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap 
+09 51            (LOCAL)  USAGE              0x000D0051 Contact Identifier (Dynamic Value)  
+75 10            (GLOBAL) REPORT_SIZE        0x10 (16) Number of bits per field <-- Redundant: REPORT_SIZE is already 16 
+95 02            (GLOBAL) REPORT_COUNT       0x02 (2) Number of fields  
+81 02            (MAIN)   INPUT              0x00000002 (2 fields x 16 bits) 0=Data 1=Variable 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap  <-- Error: PHYSICAL_MINIMUM is undefined
+09 55            (LOCAL)  USAGE              0x000D0055 Contact Count Maximum (Static Value)  
+15 00            (GLOBAL) LOGICAL_MINIMUM    0x00 (0) <-- Redundant: LOGICAL_MINIMUM is already 0 <-- Info: Consider replacing 15 00 with 14
+25 08            (GLOBAL) LOGICAL_MAXIMUM    0x08 (8)  
+75 08            (GLOBAL) REPORT_SIZE        0x08 (8) Number of bits per field  
+95 01            (GLOBAL) REPORT_COUNT       0x01 (1) Number of fields  
+B1 02            (MAIN)   FEATURE            0x00000002 (1 field x 8 bits) 0=Data 1=Variable 0=Absolute 0=NoWrap 0=Linear 0=PrefState 0=NoNull 0=NonVolatile 0=Bitmap  <-- Error: PHYSICAL_MINIMUM is undefined
+C0             (MAIN)   END_COLLECTION     Physical 
+C0           (MAIN)   END_COLLECTION     Application 
+*/
+
+//--------------------------------------------------------------------------------
+// Digitizer Device Page featureReport 03 (Device <-> Host)
+//--------------------------------------------------------------------------------
+
+typedef struct
+{
+  uint8_t  reportId;                                 // Report ID = 0x03 (3)
+                                                     // Collection: CA:TouchScreen CP:Finger
+  uint8_t  DIG_TouchScreenFingerContactCountMaximum; // Usage 0x000D0055: Contact Count Maximum, Value = 0 to 8
+} featureReport03_t;
+
+
+//--------------------------------------------------------------------------------
+// Digitizer Device Page inputReport 03 (Device --> Host)
+//--------------------------------------------------------------------------------
+
+typedef struct
+{
+  uint8_t  reportId;                                 // Report ID = 0x03 (3)
+                                                     // Collection: CA:TouchScreen CP:Finger
+  uint8_t  DIG_TouchScreenFingerTipSwitch : 1;       // Usage 0x000D0042: Tip Switch, Value = 0 to 1
+  uint8_t  : 1;                                      // Pad
+  uint8_t  : 1;                                      // Pad
+  uint8_t  : 1;                                      // Pad
+  uint8_t  DIG_TouchScreenFingerInRange : 1;         // Usage 0x000D0032: In Range, Value = 0 to 1
+  uint8_t  DIG_TouchScreenFingerConfidence : 1;      // Usage 0x000D0047: Confidence, Value = 0 to 1
+  uint8_t  : 1;                                      // Pad
+  uint8_t  : 1;                                      // Pad
+  uint8_t  : 1;                                      // Pad
+  uint8_t  : 1;                                      // Pad
+  uint8_t  : 1;                                      // Pad
+  uint8_t  : 1;                                      // Pad
+  uint8_t  : 1;                                      // Pad
+  uint8_t  : 1;                                      // Pad
+  uint8_t  : 1;                                      // Pad
+  uint8_t  : 1;                                      // Pad
+  uint16_t GD_TouchScreenFingerX;                    // Usage 0x00010030: X, Value = 0 to 32767
+  uint16_t GD_TouchScreenFingerY;                    // Usage 0x00010031: Y, Value = 0 to 32767
+  uint16_t DIG_TouchScreenFingerWidth;               // Usage 0x000D0048: Width, Value = 0 to 32767
+                                                     // Usage 0x000D0049 Height, Value = 0 to 32767 <-- Ignored: REPORT_COUNT (1) is too small
+  uint16_t pad_8;                                    // Pad
+  uint16_t DIG_TouchScreenFingerContactIdentifier[2]; // Usage 0x000D0051: Contact Identifier, Value = 0 to 32767
+} inputReport03_t;
+
